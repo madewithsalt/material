@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "start": "brunch watch --server",
-    "build": "mkdir -p lib && npm run build:components && npm run build:ui",
+    "build": "mkdir -p lib && npm run build:components",
     "build:components": "babel app/js/all.js > lib/all.js && babel app/js/components -d lib/components"
   },
   "repository": {
@@ -19,26 +19,24 @@
     "url": "https://github.com/tnbKristi/material/issues"
   },
   "homepage": "https://github.com/tnbKristi/material#readme",
-  "dependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-jest": "^20.0.3",
-    "isdev": "^1.0.1",
-    "jest": "^20.0.3",
-    "lodash": "^4.17.4",
-    "node-sass": "^4.5.3"
-  },
   "devDependencies": {
     "auto-reload-brunch": "^2",
     "autoprefixer": "^7.1.1",
-    "babel-brunch": "~6.0",
-    "babel-preset-latest": "^6",
+    "babel-brunch": "^6.1.1",
+    "babel-cli": "^6.24.1",
+    "babel-jest": "^20.0.3",
+    "babel-preset-latest": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "brunch": "^2",
-    "clean-css-brunch": "^2",
-    "css-brunch": "~2.0.0",
-    "javascript-brunch": "~2.0.0",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
+    "clean-css-brunch": "^2.10.0",
+    "isdev": "^1.0.1",
+    "javascript-brunch": "^2.10.0",
+    "jest": "^20.0.4",
+    "lodash": "^4.17.4",
+    "moment": "^2.18.1",
+    "node-sass": "^4.5.3",
+    "react": "^15.6.0",
+    "react-dom": "^15.6.0",
     "react-router-dom": "^4.1.1",
     "sass-brunch": "^2.10.4",
     "uglify-js-brunch": "~2.0.1"

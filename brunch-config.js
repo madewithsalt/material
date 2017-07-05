@@ -11,9 +11,6 @@ exports.config = {
       joinTo: {
         'css/app.css': "app/sass/app.scss"
       }
-    },
-    templates: {
-      joinTo: "js/app.js"
     }
   },
 
