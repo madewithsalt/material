@@ -1,12 +1,12 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
-// import Root from './js/index';
-//
+import Root from './js/index';
+
 const load = () => {
-  // ReactDOM.render(
-  //   <Root />,
-  //   document.querySelector('#root')
-  // );
+  ReactDOM.render(
+    <Root />,
+    document.querySelector('#root')
+  );
   console.log('moo');
 };
 

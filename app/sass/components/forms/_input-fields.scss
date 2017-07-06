@@ -170,7 +170,8 @@ textarea.materialize-textarea {
   .prefix {
     position: absolute;
     width: $input-height;
-    font-size: 2rem;
+    font-size: 2.2rem;
+    line-height: 3rem;
     transition: color .2s;
 
     &.active { color: $input-focus-color; }

@@ -148,13 +148,308 @@ var __makeRelativeRequire = function(require, mappings, pref) {
     return require(name);
   }
 };
-require.register("js/components/Forms.js", function(exports, require, module) {
+require.register("js/components/Forms/Input.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Input = function (_Component) {
+  _inherits(Input, _Component);
+
+  function Input(props) {
+    _classCallCheck(this, Input);
+
+    var _this = _possibleConstructorReturn(this, (Input.__proto__ || Object.getPrototypeOf(Input)).call(this, props));
+
+    _this.state = {
+      active: props.value ? true : false,
+      value: props.value
+    };
+
+    _this.handleFocus = _this.handleFocus.bind(_this);
+    _this.handleBlur = _this.handleBlur.bind(_this);
+    _this.handleChangeEvent = _this.handleChangeEvent.bind(_this);
+    return _this;
+  }
+
+  _createClass(Input, [{
+    key: 'handleFocus',
+    value: function handleFocus() {
+      this.setState({ active: true });
+    }
+  }, {
+    key: 'handleBlur',
+    value: function handleBlur() {
+      this.setState({
+        active: this.state.value ? true : false
+      });
+    }
+  }, {
+    key: 'handleChangeEvent',
+    value: function handleChangeEvent() {
+      var value = this.input.value;
+      this.setState({ value: value });
+      this.props.onChange({
+        name: this.props.name,
+        value: value
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var _props = this.props,
+          name = _props.name,
+          label = _props.label,
+          type = _props.type,
+          disabled = _props.disabled,
+          className = _props.className,
+          icon = _props.icon;
+      var _state = this.state,
+          active = _state.active,
+          value = _state.value;
+
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'input-field ' + (className || '') },
+        icon ? _react2.default.createElement(
+          'i',
+          { className: 'material-icons prefix ' + (active ? 'active' : '') },
+          icon
+        ) : null,
+        _react2.default.createElement('input', { id: name, type: type || 'text',
+          ref: function ref(i) {
+            return _this2.input = i;
+          },
+          onFocus: this.handleFocus,
+          onBlur: this.handleBlur,
+          onChange: this.handleChangeEvent,
+          disabled: disabled || false,
+          className: 'validate', defaultValue: value }),
+        _react2.default.createElement(
+          'label',
+          { className: active ? 'active' : '', htmlFor: name },
+          label
+        )
+      );
+    }
+  }]);
+
+  return Input;
+}(_react.Component);
+
+exports.default = Input;
+
+
+Input.propTypes = {
+  onChange: _propTypes2.default.func.isRequired,
+  name: _propTypes2.default.string.isRequired,
+  label: _propTypes2.default.string.isRequired
+};
+
+});
+
+require.register("js/containers/Components.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Input = require('../components/Forms/Input');
+
+var _Input2 = _interopRequireDefault(_Input);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function onInputChange(val, evt) {
+  console.log('input change trigger: ', val);
+}
+
+var Components = function Components(props) {
+  return _react2.default.createElement(
+    'div',
+    { className: 'primary-container components-container flex-wrapper row with-sidenav' },
+    _react2.default.createElement(
+      'div',
+      { className: 'flex-column nav-column' },
+      _react2.default.createElement(
+        'div',
+        { className: 'side-nav fixed' },
+        _react2.default.createElement('ul', null)
+      )
+    ),
+    _react2.default.createElement('div', { className: 'flex-column main-content-container' })
+  );
+};
+
+exports.default = Components;
+
+});
+
+require.register("js/containers/Home.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Input = require('../components/Forms/Input');
+
+var _Input2 = _interopRequireDefault(_Input);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function onInputChange(val, evt) {
+  console.log('input change trigger: ', val);
+}
+
+var Home = function (_Component) {
+  _inherits(Home, _Component);
+
+  function Home() {
+    _classCallCheck(this, Home);
+
+    return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).apply(this, arguments));
+  }
+
+  _createClass(Home, [{
+    key: 'renderCode',
+    value: function renderCode(id) {
+      debugger;
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'primary-container home-container flex-wrapper row with-sidenav' },
+        _react2.default.createElement(
+          'div',
+          { className: 'flex-column nav-column' },
+          _react2.default.createElement(
+            'div',
+            { className: 'side-nav fixed' },
+            _react2.default.createElement('ul', null)
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'flex-column main-content-container' },
+          _react2.default.createElement(
+            'h1',
+            null,
+            'Form Fields'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'row', ref: function ref(d) {
+                return _this2.example1 = d;
+              } },
+            _react2.default.createElement(
+              'div',
+              { className: 'col s6' },
+              _react2.default.createElement(_Input2.default, { label: 'Example Text Field', onChange: onInputChange,
+                name: 'sample_1' })
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'col s6' },
+              _react2.default.createElement(_Input2.default, { label: 'Disabled Text Field', onChange: onInputChange,
+                name: 'sample_2', disabled: true, value: 'I am not editable' })
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'col s6' },
+              _react2.default.createElement(_Input2.default, { label: 'Password', onChange: onInputChange,
+                type: 'password',
+                name: 'sample_3' })
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'col s6' },
+              _react2.default.createElement(_Input2.default, { label: 'Email', onChange: onInputChange,
+                type: 'email',
+                name: 'sample_4' })
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'col s6' },
+              _react2.default.createElement(
+                'div',
+                null,
+                'This is an Inline Input Field:',
+                _react2.default.createElement(_Input2.default, { label: 'Email', onChange: onInputChange,
+                  type: 'email', className: 'inline',
+                  name: 'sample_5' })
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'col s6' },
+              _react2.default.createElement(_Input2.default, { label: 'Input with Icon Prefix', onChange: onInputChange,
+                type: 'email', className: '', icon: 'stars',
+                name: 'sample_6' })
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return Home;
+}(_react.Component);
+
+exports.default = Home;
+
+});
+
+require.register("js/containers/Typography.js", function(exports, require, module) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.TextInput = undefined;
 
 var _react = require("react");
 
@@ -162,26 +457,90 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function noop() {}
-
-var TextInput = exports.TextInput = function TextInput(props) {
+var Typography = function Typography(props) {
   return _react2.default.createElement(
     "div",
-    { className: "input-field" },
-    _react2.default.createElement("input", { id: "first_name", type: "text", onChange: props.onChange || noop,
-      className: "validate", defaultValue: props.value }),
+    { className: "primary-container typography-container flex-wrapper row with-sidenav" },
     _react2.default.createElement(
-      "label",
-      { htmlFor: "first_name" },
-      props.label
-    )
+      "div",
+      { className: "flex-column nav-column" },
+      _react2.default.createElement(
+        "div",
+        { className: "side-nav fixed" },
+        _react2.default.createElement("ul", null)
+      )
+    ),
+    _react2.default.createElement("div", { className: "flex-column main-content-container" })
   );
 };
+
+exports.default = Typography;
 
 });
 
 require.register("js/index.js", function(exports, require, module) {
-"use strict";
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = require('react-router-dom');
+
+var _Home = require('./containers/Home');
+
+var _Home2 = _interopRequireDefault(_Home);
+
+var _Components = require('./containers/Components');
+
+var _Components2 = _interopRequireDefault(_Components);
+
+var _Typography = require('./containers/Typography');
+
+var _Typography2 = _interopRequireDefault(_Typography);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var App = function (_Component) {
+  _inherits(App, _Component);
+
+  function App() {
+    _classCallCheck(this, App);
+
+    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+  }
+
+  _createClass(App, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        _reactRouterDom.HashRouter,
+        null,
+        _react2.default.createElement(
+          'div',
+          { className: 'flex-wrapper' },
+          _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home2.default })
+        )
+      );
+    }
+  }]);
+
+  return App;
+}(_react.Component);
+
+exports.default = App;
 
 });
 

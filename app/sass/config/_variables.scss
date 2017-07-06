@@ -138,8 +138,8 @@ $dropdown-item-height: 50px !default;
 // 9. Fonts
 // ==========================================================================
 
-$roboto-font-path: "../assets/fonts/roboto/" !default;
-
+$roboto-font-path: "/fonts/roboto/" !default;
+$material-icons-path: "/fonts/iconfont/" !default;
 
 // 10. Forms
 // ==========================================================================
@@ -282,10 +282,10 @@ $toast-text-color: #fff !default;
 
 $off-black: rgba(0, 0, 0, 0.87) !default;
 // Header Styles
-$h1-fontsize: 4.2rem !default;
-$h2-fontsize: 3.56rem !default;
-$h3-fontsize: 2.92rem !default;
-$h4-fontsize: 2.28rem !default;
+$h1-fontsize: 3.8rem !default;
+$h2-fontsize: 3.2rem !default;
+$h3-fontsize: 2.8rem !default;
+$h4-fontsize: 2.2rem !default;
 $h5-fontsize: 1.64rem !default;
 $h6-fontsize: 1rem !default;
 
