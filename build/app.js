@@ -240,6 +240,7 @@ var Input = function (_Component) {
           icon
         ) : null,
         _react2.default.createElement('input', { id: name, type: type || 'text',
+          name: name,
           ref: function ref(i) {
             return _this2.input = i;
           },
@@ -271,12 +272,161 @@ Input.propTypes = {
 
 });
 
+require.register("js/components/Forms/Textarea.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TextArea = function (_Component) {
+  _inherits(TextArea, _Component);
+
+  function TextArea(props) {
+    _classCallCheck(this, TextArea);
+
+    var _this = _possibleConstructorReturn(this, (TextArea.__proto__ || Object.getPrototypeOf(TextArea)).call(this, props));
+
+    _this.state = {
+      active: props.value ? true : false,
+      value: props.value
+    };
+
+    _this.handleFocus = _this.handleFocus.bind(_this);
+    _this.handleBlur = _this.handleBlur.bind(_this);
+    _this.handleChangeEvent = _this.handleChangeEvent.bind(_this);
+    return _this;
+  }
+
+  _createClass(TextArea, [{
+    key: 'handleFocus',
+    value: function handleFocus() {
+      this.setState({ active: true });
+    }
+  }, {
+    key: 'handleBlur',
+    value: function handleBlur() {
+      this.setState({
+        active: this.state.value ? true : false
+      });
+    }
+  }, {
+    key: 'handleChangeEvent',
+    value: function handleChangeEvent() {
+      var value = this.input.value;
+      this.setState({ value: value });
+      this.props.onChange({
+        name: this.props.name,
+        value: value
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var _props = this.props,
+          name = _props.name,
+          label = _props.label,
+          type = _props.type,
+          disabled = _props.disabled,
+          className = _props.className,
+          icon = _props.icon;
+      var _state = this.state,
+          active = _state.active,
+          value = _state.value;
+
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'input-field ' + (className || '') },
+        icon ? _react2.default.createElement(
+          'i',
+          { className: 'material-icons prefix ' + (active ? 'active' : '') },
+          icon
+        ) : null,
+        _react2.default.createElement('textarea', { id: name, name: name,
+          className: 'materialize-textarea',
+          ref: function ref(i) {
+            return _this2.input = i;
+          },
+          onFocus: this.handleFocus,
+          onBlur: this.handleBlur,
+          onChange: this.handleChangeEvent,
+          disabled: disabled || false,
+          defaultValue: value }),
+        _react2.default.createElement(
+          'label',
+          { className: active ? 'active' : '', htmlFor: name },
+          label
+        )
+      );
+    }
+  }]);
+
+  return TextArea;
+}(_react.Component);
+
+exports.default = TextArea;
+
+
+TextArea.propTypes = {
+  onChange: _propTypes2.default.func.isRequired,
+  name: _propTypes2.default.string.isRequired,
+  label: _propTypes2.default.string.isRequired
+};
+
+});
+
+require.register("js/components/Forms/index.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.TextArea = exports.Input = undefined;
+
+var _Input = require('./Input');
+
+var _Input2 = _interopRequireDefault(_Input);
+
+var _Textarea = require('./Textarea');
+
+var _Textarea2 = _interopRequireDefault(_Textarea);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.Input = _Input2.default;
+exports.TextArea = _Textarea2.default;
+
+});
+
 require.register("js/containers/Components.js", function(exports, require, module) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
@@ -288,26 +438,68 @@ var _Input2 = _interopRequireDefault(_Input);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function onInputChange(val, evt) {
-  console.log('input change trigger: ', val);
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Components = function Components(props) {
-  return _react2.default.createElement(
-    'div',
-    { className: 'primary-container components-container flex-wrapper row with-sidenav' },
-    _react2.default.createElement(
-      'div',
-      { className: 'flex-column nav-column' },
-      _react2.default.createElement(
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+require('whatwg-fetch');
+
+var Components = function (_Component) {
+  _inherits(Components, _Component);
+
+  function Components() {
+    _classCallCheck(this, Components);
+
+    return _possibleConstructorReturn(this, (Components.__proto__ || Object.getPrototypeOf(Components)).apply(this, arguments));
+  }
+
+  _createClass(Components, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var contentDiv = this.content;
+
+      /*
+      * ATTENTION:
+      * All content actually lives in /assets/components.html.
+      */
+      fetch('/components.html').then(function (response) {
+        return response.text();
+      }).then(function (body) {
+        contentDiv.innerHTML = body;
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
         'div',
-        { className: 'side-nav fixed' },
-        _react2.default.createElement('ul', null)
-      )
-    ),
-    _react2.default.createElement('div', { className: 'flex-column main-content-container' })
-  );
-};
+        { className: 'primary-container components-container flex-wrapper row with-sidenav' },
+        _react2.default.createElement(
+          'div',
+          { className: 'flex-column nav-column' },
+          _react2.default.createElement(
+            'div',
+            { className: 'side-nav fixed' },
+            _react2.default.createElement('ul', null)
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'flex-column main-content-container' },
+          _react2.default.createElement('div', { id: 'component-content', ref: function ref(div) {
+              _this2.content = div;
+            } })
+        )
+      );
+    }
+  }]);
+
+  return Components;
+}(_react.Component);
 
 exports.default = Components;
 
@@ -326,9 +518,7 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Input = require('../components/Forms/Input');
-
-var _Input2 = _interopRequireDefault(_Input);
+var _Forms = require('../components/Forms');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -389,26 +579,26 @@ var Home = function (_Component) {
             _react2.default.createElement(
               'div',
               { className: 'col s6' },
-              _react2.default.createElement(_Input2.default, { label: 'Example Text Field', onChange: onInputChange,
+              _react2.default.createElement(_Forms.Input, { label: 'Example Text Field', onChange: onInputChange,
                 name: 'sample_1' })
             ),
             _react2.default.createElement(
               'div',
               { className: 'col s6' },
-              _react2.default.createElement(_Input2.default, { label: 'Disabled Text Field', onChange: onInputChange,
+              _react2.default.createElement(_Forms.Input, { label: 'Disabled Text Field', onChange: onInputChange,
                 name: 'sample_2', disabled: true, value: 'I am not editable' })
             ),
             _react2.default.createElement(
               'div',
               { className: 'col s6' },
-              _react2.default.createElement(_Input2.default, { label: 'Password', onChange: onInputChange,
+              _react2.default.createElement(_Forms.Input, { label: 'Password', onChange: onInputChange,
                 type: 'password',
                 name: 'sample_3' })
             ),
             _react2.default.createElement(
               'div',
               { className: 'col s6' },
-              _react2.default.createElement(_Input2.default, { label: 'Email', onChange: onInputChange,
+              _react2.default.createElement(_Forms.Input, { label: 'Email', onChange: onInputChange,
                 type: 'email',
                 name: 'sample_4' })
             ),
@@ -419,7 +609,7 @@ var Home = function (_Component) {
                 'div',
                 null,
                 'This is an Inline Input Field:',
-                _react2.default.createElement(_Input2.default, { label: 'Email', onChange: onInputChange,
+                _react2.default.createElement(_Forms.Input, { label: 'Email', onChange: onInputChange,
                   type: 'email', className: 'inline',
                   name: 'sample_5' })
               )
@@ -427,10 +617,17 @@ var Home = function (_Component) {
             _react2.default.createElement(
               'div',
               { className: 'col s6' },
-              _react2.default.createElement(_Input2.default, { label: 'Input with Icon Prefix', onChange: onInputChange,
+              _react2.default.createElement(_Forms.Input, { label: 'Input with Icon Prefix', onChange: onInputChange,
                 type: 'email', className: '', icon: 'stars',
                 name: 'sample_6' })
-            )
+            ),
+            _react2.default.createElement(
+              'h3',
+              null,
+              'Text Area'
+            ),
+            _react2.default.createElement(_Forms.TextArea, { label: 'I\'m a textarea. ', onChange: onInputChange,
+              name: 'sample_7' })
           )
         )
       );
@@ -531,7 +728,9 @@ var App = function (_Component) {
         _react2.default.createElement(
           'div',
           { className: 'flex-wrapper' },
-          _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home2.default })
+          _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home2.default }),
+          _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/components', component: _Components2.default }),
+          _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/typography', component: _Typography2.default })
         )
       );
     }

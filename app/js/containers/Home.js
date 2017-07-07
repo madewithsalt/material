@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import Input from '../components/Forms/Input';
+import {
+  Input,
+  TextArea
+} from '../components/Forms';
 
 function onInputChange(val, evt) {
   console.log('input change trigger: ', val);
@@ -53,6 +56,9 @@ export default class Home extends Component {
                   type="email" className="" icon="stars"
                   name="sample_6" />
             </div>
+            <h3>Text Area</h3>
+            <TextArea label="I'm a textarea. "  onChange={onInputChange}
+              name="sample_7" />
           </div>
         </div>
 

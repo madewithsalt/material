@@ -12,6 +12,8 @@ class App extends Component {
       <Router>
         <div className="flex-wrapper">
           <Route exact path="/" component={Home} />
+          <Route exact path="/components" component={Components} />
+          <Route exact path="/typography" component={Typography} />          
         </div>
       </Router>
     )
