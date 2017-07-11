@@ -27,7 +27,8 @@ exports.config = {
     },
     sass: {
       mode: 'native', // set to 'native' to force libsass,
-      sourceMapEmbed: true
+      sourceMapEmbed: true,
+      includePaths: ['node_modules']
     },
     postcss: {
       processors: [

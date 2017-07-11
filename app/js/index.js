@@ -5,6 +5,7 @@ import { HashRouter as Router, Route } from 'react-router-dom';
 import Home from './containers/Home';
 import Forms from './containers/Forms';
 import Tables from './containers/Tables';
+import Icons from './containers/Icons';
 import Components from './containers/Components';
 import Typography from './containers/Typography';
 
@@ -20,6 +21,7 @@ class App extends Component {
                   <li>
                     Components
                     <ul>
+                      <li><a href="#icons">Icons</a></li>
                       <li><a href="#forms">Forms</a></li>
                       <li><a href="#tables">Tables</a></li>
                     </ul>
@@ -32,6 +34,7 @@ class App extends Component {
               <Route exact path="/" component={Home} />
               <Route exact path="/forms" component={Forms} />
               <Route exact path="/tables" component={Tables} />
+              <Route exact path="/icons" component={Icons} />
               <Route exact path="/components" component={Components} />
               <Route exact path="/typography" component={Typography} />
             </div>
