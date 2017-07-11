@@ -51,8 +51,6 @@
   },
   "dependencies": {
     "material-design-icons": "^3.0.1",
-    "react-code-toggle": "^0.1.1",
-    "sinon": "^2.3.6",
     "whatwg-fetch": "^2.0.3"
   }
 }

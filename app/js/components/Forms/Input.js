@@ -27,7 +27,8 @@ export default class Input extends Component {
 
   handleChangeEvent(evt) {
     const value = evt.target.value;
-    this.setState({ value })
+    this.setState({ value });
+
     this.props.onChange({
       name: this.props.name,
       value
