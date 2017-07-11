@@ -380,7 +380,8 @@ var TextArea = function (_Component) {
 
     _this.state = {
       active: props.value ? true : false,
-      value: props.value
+      value: props.value,
+      height: props.defaultHeight
     };
 
     _this.handleFocus = _this.handleFocus.bind(_this);
@@ -390,6 +391,11 @@ var TextArea = function (_Component) {
   }
 
   _createClass(TextArea, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.handleResize();
+    }
+  }, {
     key: 'handleFocus',
     value: function handleFocus() {
       this.setState({ active: true });
@@ -400,16 +406,33 @@ var TextArea = function (_Component) {
       this.setState({
         active: this.state.value ? true : false
       });
+      this.handleResize();
     }
   }, {
     key: 'handleChangeEvent',
     value: function handleChangeEvent(evt) {
       var value = evt.target.value;
-      this.setState({ value: value });
-      this.props.onChange({
-        name: this.props.name,
-        value: value
-      });
+      if (this.props.resizable) {
+        this.handleResize();
+      }
+
+      if (value !== this.state.value) {
+        this.setState({ value: value });
+        this.props.onChange({
+          name: this.props.name,
+          value: value
+        });
+      }
+    }
+  }, {
+    key: 'handleResize',
+    value: function handleResize() {
+      var height = this.shadow.clientHeight + 45;
+      if (height > this.props.defaultHeight) {
+        this.setState({ height: height });
+      } else if (height < this.props.defaultHeight) {
+        this.setState({ height: this.props.defaultHeight });
+      }
     }
   }, {
     key: 'render',
@@ -425,31 +448,58 @@ var TextArea = function (_Component) {
           icon = _props.icon;
       var _state = this.state,
           active = _state.active,
-          value = _state.value;
+          value = _state.value,
+          height = _state.height;
 
+
+      var shadowStyles = {
+        visibility: 'hidden',
+        position: 'absolute',
+        top: 0,
+        height: 'auto',
+        display: 'block',
+        whiteSpace: 'pre-wrap',
+        wordWrap: 'break-word'
+      };
 
       return _react2.default.createElement(
         'div',
-        { className: 'input-field ' + (className || '') },
+        { className: 'input-field ' + (className || ''), style: { position: 'relative' } },
         icon ? _react2.default.createElement(
           'i',
           { className: 'material-icons prefix ' + (active ? 'active' : '') },
           icon
         ) : null,
         _react2.default.createElement('textarea', { id: name, name: name,
-          className: 'materialize-textarea',
+          className: 'textarea',
+          style: { height: height + 'px' },
           ref: function ref(i) {
             return _this2.input = i;
           },
           onFocus: this.handleFocus,
           onBlur: this.handleBlur,
           onChange: this.handleChangeEvent,
+          onKeyUp: this.handleChangeEvent,
           disabled: disabled || false,
           defaultValue: value }),
         _react2.default.createElement(
           'label',
           { className: active ? 'active' : '', htmlFor: name },
           label
+        ),
+        _react2.default.createElement(
+          'div',
+          {
+            className: 'textarea',
+            style: shadowStyles,
+            ref: function ref(s) {
+              _this2.shadow = s;
+            },
+            tabIndex: '-1',
+            readOnly: true,
+            'aria-hidden': 'true'
+          },
+          value
         )
       );
     }
@@ -460,6 +510,11 @@ var TextArea = function (_Component) {
 
 exports.default = TextArea;
 
+
+TextArea.defaultProps = {
+  resizable: true,
+  defaultHeight: 65
+};
 
 TextArea.propTypes = {
   onChange: _propTypes2.default.func.isRequired,
@@ -489,6 +544,30 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.Input = _Input2.default;
 exports.TextArea = _Textarea2.default;
+
+});
+
+require.register("js/components/Icons.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Icon = undefined;
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Icon = exports.Icon = function Icon(props) {
+  return _react2.default.createElement(
+    'i',
+    { className: (props.className ? props.className : '') + ' material-icons' },
+    props.children
+  );
+};
 
 });
 
@@ -1205,6 +1284,96 @@ exports.default = Home;
 
 });
 
+require.register("js/containers/Icons.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Icons = require('../components/Icons');
+
+var _CodeElement = require('../docs/CodeElement');
+
+var _CodeElement2 = _interopRequireDefault(_CodeElement);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Icons = function Icons(props) {
+  return _react2.default.createElement(
+    'div',
+    { className: 'primary-container flex-wrapper' },
+    _react2.default.createElement(
+      'h1',
+      null,
+      'Icons'
+    ),
+    _react2.default.createElement(
+      'p',
+      null,
+      'All icons in Material Icons v3.0.1 are available to use.'
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'row' },
+      _react2.default.createElement(
+        'div',
+        { className: 'col s3' },
+        _react2.default.createElement(
+          'h5',
+          null,
+          'Standalone Icon'
+        ),
+        _react2.default.createElement(
+          _Icons.Icon,
+          null,
+          'star'
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'col s3' },
+        _react2.default.createElement(
+          'h5',
+          null,
+          'Icon in a Button'
+        )
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'examples' },
+      _react2.default.createElement(
+        _CodeElement2.default,
+        { react: true },
+        "<Icon>star</Icon>"
+      ),
+      _react2.default.createElement(
+        'p',
+        null,
+        'renders as:'
+      ),
+      _react2.default.createElement(
+        _CodeElement2.default,
+        null,
+        _react2.default.createElement(
+          _Icons.Icon,
+          null,
+          'star'
+        )
+      )
+    )
+  );
+};
+
+exports.default = Icons;
+
+});
+
 require.register("js/containers/Tables.js", function(exports, require, module) {
 'use strict';
 
@@ -1338,6 +1507,105 @@ exports.default = Typography;
 
 });
 
+require.register("js/docs/CodeElement.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+require('prismjs');
+
+var CodeElement = function (_Component) {
+  _inherits(CodeElement, _Component);
+
+  function CodeElement() {
+    _classCallCheck(this, CodeElement);
+
+    return _possibleConstructorReturn(this, (CodeElement.__proto__ || Object.getPrototypeOf(CodeElement)).apply(this, arguments));
+  }
+
+  _createClass(CodeElement, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.renderContent();
+    }
+  }, {
+    key: 'renderContent',
+    value: function renderContent() {
+      if (!this.props.react) {
+        var content = this.shadow.innerHTML;
+
+        this.code.innerHTML = Prism.highlight(content, Prism.languages[this.props.format]);
+      }
+    }
+  }, {
+    key: 'renderReactComponent',
+    value: function renderReactComponent() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        'pre',
+        null,
+        _react2.default.createElement('code', {
+          className: 'language-' + this.props.format + ' code-element', ref: function ref(d) {
+            return _this2.code = d;
+          },
+          dangerouslySetInnerHTML: { __html: Prism.highlight(this.props.children, Prism.languages[this.props.format]) } })
+      );
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this3 = this;
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'code-element-container' },
+        _react2.default.createElement(
+          'div',
+          { className: 'shadow', style: { display: 'none' }, ref: function ref(s) {
+              return _this3.shadow = s;
+            } },
+          this.props.children
+        ),
+        !this.props.react ? _react2.default.createElement(
+          'pre',
+          null,
+          _react2.default.createElement('code', { className: 'language-' + this.props.format + ' code-element', ref: function ref(d) {
+              return _this3.code = d;
+            } })
+        ) : this.renderReactComponent()
+      );
+    }
+  }]);
+
+  return CodeElement;
+}(_react.Component);
+
+CodeElement.defaultProps = {
+  format: 'html',
+  react: false
+};
+
+exports.default = CodeElement;
+
+});
+
 require.register("js/index.js", function(exports, require, module) {
 'use strict';
 
@@ -1364,6 +1632,10 @@ var _Forms2 = _interopRequireDefault(_Forms);
 var _Tables = require('./containers/Tables');
 
 var _Tables2 = _interopRequireDefault(_Tables);
+
+var _Icons = require('./containers/Icons');
+
+var _Icons2 = _interopRequireDefault(_Icons);
 
 var _Components = require('./containers/Components');
 
@@ -1423,6 +1695,15 @@ var App = function (_Component) {
                         null,
                         _react2.default.createElement(
                           'a',
+                          { href: '#icons' },
+                          'Icons'
+                        )
+                      ),
+                      _react2.default.createElement(
+                        'li',
+                        null,
+                        _react2.default.createElement(
+                          'a',
                           { href: '#forms' },
                           'Forms'
                         )
@@ -1452,6 +1733,7 @@ var App = function (_Component) {
               _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home2.default }),
               _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/forms', component: _Forms2.default }),
               _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/tables', component: _Tables2.default }),
+              _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/icons', component: _Icons2.default }),
               _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/components', component: _Components2.default }),
               _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/typography', component: _Typography2.default })
             )
