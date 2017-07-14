@@ -4,6 +4,7 @@
   "description": "A Material Design inspired library of SASS styles and React Components working in harmony.",
   "main": "lib/all.js",
   "scripts": {
+    "watch": "npm-watch",
     "test": "jest",
     "start": "brunch watch --server",
     "build": "mkdir -p lib && npm run build:components",
@@ -20,6 +21,15 @@
   },
   "jest": {
     "automock": false
+  },
+  "watch": {
+    "build": {
+      "patterns": [
+        "app/js/all.js"
+      ],
+      "extensions": "js,sass,html",
+      "ignore": "app/vendor/**/*"
+    }
   },
   "homepage": "https://github.com/tnbKristi/material#readme",
   "devDependencies": {
@@ -41,6 +51,7 @@
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "node-sass": "^4.5.3",
+    "npm-watch": "^0.2.0",
     "react": "^15.6.0",
     "react-dom": "^15.6.0",
     "react-router-dom": "^4.1.1",

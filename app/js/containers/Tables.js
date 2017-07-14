@@ -9,6 +9,8 @@ import {
   TableRowColumn,
   TableFooter
 } from '../components/Tables';
+import CodeElement from '../docs/CodeElement'
+
 
 class Tables extends Component {
 
@@ -41,6 +43,31 @@ class Tables extends Component {
             </TableRow>
           </TableBody>
         </Table>
+        <div className="col m6">
+          <h5>Code Example</h5>
+          <CodeElement react>
+            {
+              `
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHeaderColumn>
+        // ...
+      </TableHeaderColumn>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableRowColumn>
+        // ...
+      </TableRowColumn>
+    </TableRow>
+  </TableBody>
+</Table>
+              `
+            }
+          </CodeElement>
+        </div>
       </div>
     );
   }

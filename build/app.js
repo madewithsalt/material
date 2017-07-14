@@ -148,6 +148,114 @@ var __makeRelativeRequire = function(require, mappings, pref) {
     return require(name);
   }
 };
+require.register("js/all.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Forms = require('./components/Forms');
+
+Object.defineProperty(exports, 'Input', {
+  enumerable: true,
+  get: function get() {
+    return _Forms.Input;
+  }
+});
+
+var _Buttons = require('./components/Buttons');
+
+Object.defineProperty(exports, 'FlatButton', {
+  enumerable: true,
+  get: function get() {
+    return _Buttons.FlatButton;
+  }
+});
+
+});
+
+require.register("js/components/Buttons/FlatButton.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var FlatButton = function (_Component) {
+  _inherits(FlatButton, _Component);
+
+  function FlatButton() {
+    _classCallCheck(this, FlatButton);
+
+    return _possibleConstructorReturn(this, (FlatButton.__proto__ || Object.getPrototypeOf(FlatButton)).apply(this, arguments));
+  }
+
+  _createClass(FlatButton, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          name = _props.name,
+          className = _props.className,
+          onChange = _props.onChange;
+
+
+      return _react2.default.createElement(
+        'button',
+        { className: 'btn btn-flat' },
+        name
+      );
+    }
+  }]);
+
+  return FlatButton;
+}(_react.Component);
+
+FlatButton.defaultProps = {
+  name: _propTypes2.default.string.isRequired,
+  onChange: _propTypes2.default.func.isRequired
+};
+
+exports.default = FlatButton;
+
+});
+
+require.register("js/components/Buttons/index.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.FlatButton = undefined;
+
+var _FlatButton = require('./FlatButton');
+
+var _FlatButton2 = _interopRequireDefault(_FlatButton);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.FlatButton = _FlatButton2.default;
+
+});
+
 require.register("js/components/Forms/Checkbox.js", function(exports, require, module) {
 'use strict';
 
@@ -1118,6 +1226,10 @@ var _react2 = _interopRequireDefault(_react);
 
 var _Forms = require('../components/Forms');
 
+var _CodeElement = require('../docs/CodeElement');
+
+var _CodeElement2 = _interopRequireDefault(_CodeElement);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1161,27 +1273,45 @@ var Forms = function (_Component) {
             'div',
             { className: 'col s6' },
             _react2.default.createElement(_Forms.Input, { label: 'Example Text Field', onChange: onInputChange,
-              name: 'sample_1' })
+              name: 'sample_1' }),
+            _react2.default.createElement(
+              _CodeElement2.default,
+              { react: true },
+              '<Input label="Example Text Field" \n onChange={onInputChange} name="sample_1" />'
+            )
           ),
           _react2.default.createElement(
             'div',
             { className: 'col s6' },
             _react2.default.createElement(_Forms.Input, { label: 'Disabled Text Field', onChange: onInputChange,
-              name: 'sample_2', disabled: true, value: 'I am not editable' })
+              name: 'sample_2', disabled: true, value: 'I am not editable' }),
+            _react2.default.createElement(
+              _CodeElement2.default,
+              { react: true },
+              '<Input label="Disabled Text Field" onChange={onInputChange} \n name="sample_2" disabled={true} value="I am not editable" />'
+            )
           ),
           _react2.default.createElement(
             'div',
             { className: 'col s6' },
             _react2.default.createElement(_Forms.Input, { label: 'Password', onChange: onInputChange,
-              type: 'password',
-              name: 'sample_3' })
+              type: 'password', name: 'sample_3' }),
+            _react2.default.createElement(
+              _CodeElement2.default,
+              { react: true },
+              '<Input label="Password" onChange={onInputChange} \n type="password" name="sample_3" />'
+            )
           ),
           _react2.default.createElement(
             'div',
             { className: 'col s6' },
             _react2.default.createElement(_Forms.Input, { label: 'Email', onChange: onInputChange,
-              type: 'email',
-              name: 'sample_4' })
+              type: 'email', name: 'sample_4' }),
+            _react2.default.createElement(
+              _CodeElement2.default,
+              { react: true },
+              '<Input label="Email" onChange={onInputChange} \n type="email" name="sample_4" />'
+            )
           ),
           _react2.default.createElement(
             'div',
@@ -1192,7 +1322,12 @@ var Forms = function (_Component) {
               'This is an Inline Input Field:',
               _react2.default.createElement(_Forms.Input, { label: 'Email', onChange: onInputChange,
                 type: 'email', className: 'inline',
-                name: 'sample_5' })
+                name: 'sample_5' }),
+              _react2.default.createElement(
+                _CodeElement2.default,
+                { react: true },
+                '<Input label="Email" onChange={onInputChange} \n type="email" className="inline" \n name="sample_5" />'
+              )
             )
           ),
           _react2.default.createElement(
@@ -1200,15 +1335,29 @@ var Forms = function (_Component) {
             { className: 'col s6' },
             _react2.default.createElement(_Forms.Input, { label: 'Input with Icon Prefix', onChange: onInputChange,
               type: 'email', className: '', icon: 'stars',
-              name: 'sample_6' })
+              name: 'sample_6' }),
+            _react2.default.createElement(
+              _CodeElement2.default,
+              { react: true },
+              '<Input label="Input with Icon Prefix" onChange={onInputChange} \n type="email" icon="stars" \n name="sample_6" />'
+            )
           ),
           _react2.default.createElement(
-            'h3',
-            null,
-            'Text Area'
-          ),
-          _react2.default.createElement(_Forms.TextArea, { label: 'I\'m a textarea. ', onChange: onInputChange,
-            name: 'sample_7' })
+            'div',
+            { className: 'col s6' },
+            _react2.default.createElement(
+              'h3',
+              null,
+              'Text Area'
+            ),
+            _react2.default.createElement(_Forms.TextArea, { label: 'I\'m a textarea. ', onChange: onInputChange,
+              name: 'sample_7' }),
+            _react2.default.createElement(
+              _CodeElement2.default,
+              { react: true },
+              '<TextArea label="I\'m a textarea. "  onChange={onInputChange} \n name="sample_7" />'
+            )
+          )
         )
       );
     }
@@ -1332,6 +1481,11 @@ var Icons = function Icons(props) {
           _Icons.Icon,
           null,
           'star'
+        ),
+        _react2.default.createElement(
+          _CodeElement2.default,
+          { react: true },
+          "<Icon>star</Icon>"
         )
       ),
       _react2.default.createElement(
@@ -1341,29 +1495,6 @@ var Icons = function Icons(props) {
           'h5',
           null,
           'Icon in a Button'
-        )
-      )
-    ),
-    _react2.default.createElement(
-      'div',
-      { className: 'examples' },
-      _react2.default.createElement(
-        _CodeElement2.default,
-        { react: true },
-        "<Icon>star</Icon>"
-      ),
-      _react2.default.createElement(
-        'p',
-        null,
-        'renders as:'
-      ),
-      _react2.default.createElement(
-        _CodeElement2.default,
-        null,
-        _react2.default.createElement(
-          _Icons.Icon,
-          null,
-          'star'
         )
       )
     )
@@ -1388,6 +1519,10 @@ var _react = require('react');
 var _react2 = _interopRequireDefault(_react);
 
 var _Tables = require('../components/Tables');
+
+var _CodeElement = require('../docs/CodeElement');
+
+var _CodeElement2 = _interopRequireDefault(_CodeElement);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1460,6 +1595,20 @@ var Tables = function (_Component) {
                 'C'
               )
             )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'col m6' },
+          _react2.default.createElement(
+            'h5',
+            null,
+            'Code Example'
+          ),
+          _react2.default.createElement(
+            _CodeElement2.default,
+            { react: true },
+            '\n<Table>\n  <TableHeader>\n    <TableRow>\n      <TableHeaderColumn>\n        // ...\n      </TableHeaderColumn>\n    </TableRow>\n  </TableHeader>\n  <TableBody>\n    <TableRow>\n      <TableRowColumn>\n        // ...\n      </TableRowColumn>\n    </TableRow>\n  </TableBody>\n</Table>\n              '
           )
         )
       );
@@ -1637,10 +1786,6 @@ var _Icons = require('./containers/Icons');
 
 var _Icons2 = _interopRequireDefault(_Icons);
 
-var _Components = require('./containers/Components');
-
-var _Components2 = _interopRequireDefault(_Components);
-
 var _Typography = require('./containers/Typography');
 
 var _Typography2 = _interopRequireDefault(_Typography);
@@ -1734,7 +1879,6 @@ var App = function (_Component) {
               _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/forms', component: _Forms2.default }),
               _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/tables', component: _Tables2.default }),
               _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/icons', component: _Icons2.default }),
-              _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/components', component: _Components2.default }),
               _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/typography', component: _Typography2.default })
             )
           )
