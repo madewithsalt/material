@@ -164,14 +164,98 @@ Object.defineProperty(exports, 'Input', {
   }
 });
 
-var _Buttons = require('./components/Buttons');
+var _Icons = require('./components/Icons');
 
-Object.defineProperty(exports, 'FlatButton', {
+Object.defineProperty(exports, 'Icon', {
   enumerable: true,
   get: function get() {
-    return _Buttons.FlatButton;
+    return _Icons.Icon;
   }
 });
+Object.defineProperty(exports, 'SvgIcon', {
+  enumerable: true,
+  get: function get() {
+    return _Icons.SvgIcon;
+  }
+});
+
+var _Buttons = require('./components/Buttons');
+
+Object.defineProperty(exports, 'Button', {
+  enumerable: true,
+  get: function get() {
+    return _Buttons.Button;
+  }
+});
+
+});
+
+require.register("js/components/Buttons/Button.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Button = function (_Component) {
+  _inherits(Button, _Component);
+
+  function Button() {
+    _classCallCheck(this, Button);
+
+    return _possibleConstructorReturn(this, (Button.__proto__ || Object.getPrototypeOf(Button)).apply(this, arguments));
+  }
+
+  _createClass(Button, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          name = _props.name,
+          floating = _props.floating,
+          flat = _props.flat,
+          size = _props.size,
+          className = _props.className,
+          onClick = _props.onClick;
+
+
+      var classes = ['btn', '' + (className || ''), '' + (flat ? 'btn-flat' : ''), '' + (floating ? 'btn-floating' : ''), '' + (size || '')];
+
+      return _react2.default.createElement(
+        'button',
+        { className: classes.join(' '),
+          onClick: onClick },
+        name
+      );
+    }
+  }]);
+
+  return Button;
+}(_react.Component);
+
+Button.defaultProps = {
+  name: _propTypes2.default.string.isRequired,
+  onClick: _propTypes2.default.func.isRequired
+};
+
+exports.default = Button;
 
 });
 
@@ -220,7 +304,7 @@ var FlatButton = function (_Component) {
 
       return _react2.default.createElement(
         'button',
-        { className: 'btn btn-flat' },
+        { className: 'btn btn-flat ' + (className || '') },
         name
       );
     }
@@ -244,15 +328,15 @@ require.register("js/components/Buttons/index.js", function(exports, require, mo
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.FlatButton = undefined;
+exports.Button = undefined;
 
-var _FlatButton = require('./FlatButton');
+var _Button = require('./Button');
 
-var _FlatButton2 = _interopRequireDefault(_FlatButton);
+var _Button2 = _interopRequireDefault(_Button);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.FlatButton = _FlatButton2.default;
+exports.Button = _Button2.default;
 
 });
 
@@ -661,13 +745,23 @@ require.register("js/components/Icons.js", function(exports, require, module) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Icon = undefined;
+exports.SvgIcon = exports.Icon = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Icon = exports.Icon = function Icon(props) {
   return _react2.default.createElement(
@@ -676,6 +770,33 @@ var Icon = exports.Icon = function Icon(props) {
     props.children
   );
 };
+
+var SvgIcon = exports.SvgIcon = function (_Component) {
+  _inherits(SvgIcon, _Component);
+
+  function SvgIcon() {
+    _classCallCheck(this, SvgIcon);
+
+    return _possibleConstructorReturn(this, (SvgIcon.__proto__ || Object.getPrototypeOf(SvgIcon)).apply(this, arguments));
+  }
+
+  _createClass(SvgIcon, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          children = _props.children,
+          other = _objectWithoutProperties(_props, ['children']);
+
+      return _react2.default.createElement(
+        'svg',
+        other,
+        children
+      );
+    }
+  }]);
+
+  return SvgIcon;
+}(_react.Component);
 
 });
 
