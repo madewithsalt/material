@@ -10,7 +10,7 @@ class FlatButton extends Component {
     } = this.props;
 
     return (
-      <button className="btn btn-flat">{name}</button>
+      <button className={`btn btn-flat ${className || ''}`}>{name}</button>
     );
   }
 }

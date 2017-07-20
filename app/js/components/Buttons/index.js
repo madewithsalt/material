@@ -1,5 +1,5 @@
-import FlatButton from './FlatButton';
+import Button from './Button';
 
 export {
-  FlatButton
+  Button
 }

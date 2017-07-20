@@ -2,5 +2,9 @@ export {
   Input
 } from './components/Forms';
 export {
-  FlatButton
+  Icon,
+  SvgIcon
+} from './components/Icons';
+export {
+  Button
 } from './components/Buttons';
