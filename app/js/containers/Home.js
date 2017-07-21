@@ -16,9 +16,17 @@ export default class Home extends Component {
   render() {
     return (
       <div className="primary-container home-container flex-wrapper">
-          <h1>Material </h1>
-
-
+          <h1>Material</h1>
+          <p>
+            An adaptation of React components and SASS styles inspired by Material-UI and Materialize.
+          </p>
+          <p>
+            Demo Site: <a href="https://tnbkristi.github.io/material/" target="_blank">https://tnbkristi.github.io/material/</a>
+          </p>
+          <h3>Additional Reference</h3>
+          <p>
+            Styles adapted from: <a href="http://materializecss.com" target="_blank">http://materializecss.com</a>.
+          </p>
       </div>
     )
   }
