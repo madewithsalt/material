@@ -47,6 +47,7 @@
     "brunch": "^2",
     "clean-css-brunch": "^2.10.0",
     "enzyme": "^2.9.1",
+    "faker": "^4.1.0",
     "isdev": "^1.0.1",
     "javascript-brunch": "^2.10.0",
     "jest": "^20.0.4",
@@ -63,6 +64,8 @@
     "uglify-js-brunch": "~2.0.1"
   },
   "dependencies": {
+    "datatables.net": "^1.10.15",
+    "jquery": "^3.2.1",
     "material-design-icons": "^3.0.1",
     "prismjs": "^1.6.0",
     "whatwg-fetch": "^2.0.3"

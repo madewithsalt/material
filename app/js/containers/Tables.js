@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import {
+  DataTable,
   Table,
   TableBody,
   TableHeader,
@@ -9,38 +10,52 @@ import {
   TableRowColumn,
   TableFooter
 } from '../components/Tables';
-import CodeElement from '../docs/CodeElement'
+import CodeElement from '../docs/CodeElement';
+import faker from 'faker';
+import { times } from 'lodash';
+
+let sampleData = [];
+times(50, (i) => {
+  sampleData.push({
+    name: faker.name.findName(),
+    email: faker.internet.email(),
+    title: faker.name.title()
+  });
+});
 
 
 class Tables extends Component {
 
   render() {
+    const dataKeys = Object.keys(sampleData[0]);
+
     return (
       <div className="primary-container flex-wrapper tables-container">
         <h1>Tables</h1>
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHeaderColumn>
-                One
-              </TableHeaderColumn>
-              <TableHeaderColumn>
-                Two
-              </TableHeaderColumn>
+              {dataKeys.map((val) => {
+                return (
+                  <TableHeaderColumn key={val}>{val}</TableHeaderColumn>
+                )
+              })}
             </TableRow>
           </TableHeader>
           <TableBody>
-            <TableRow>
-              <TableRowColumn>
-                A
-              </TableRowColumn>
-              <TableRowColumn>
-                B
-              </TableRowColumn>
-              <TableRowColumn>
-                C
-              </TableRowColumn>
-            </TableRow>
+            {sampleData.map((data) => {
+              return (
+                <TableRow>
+                    { dataKeys.map((key) => {
+                      return (
+                        <TableRowColumn key={data[key]}>
+                          {data[key]}
+                        </TableRowColumn>
+                      )
+                    })}
+                </TableRow>
+              )
+            })}
           </TableBody>
         </Table>
         <div className="col m6">

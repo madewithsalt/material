@@ -7,6 +7,7 @@ import Forms from './containers/Forms';
 import Tables from './containers/Tables';
 import Icons from './containers/Icons';
 import Typography from './containers/Typography';
+import Collapsibles from './containers/Collapsible';
 
 class App extends Component {
   render() {
@@ -23,6 +24,7 @@ class App extends Component {
                       <li><a href="#icons">Icons</a></li>
                       <li><a href="#forms">Forms</a></li>
                       <li><a href="#tables">Tables</a></li>
+                      <li><a href="#collapsible">Collapsible</a></li>
                     </ul>
                   </li>
                   <li><a href="#"></a></li>
@@ -35,6 +37,7 @@ class App extends Component {
               <Route exact path="/tables" component={Tables} />
               <Route exact path="/icons" component={Icons} />
               <Route exact path="/typography" component={Typography} />
+              <Route exact path="/collapsible" component={Collapsibles} />
             </div>
           </div>
         </div>

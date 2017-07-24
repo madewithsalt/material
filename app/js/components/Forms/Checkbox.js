@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export default class Checkbox extends Component {
+class Checkbox extends Component {
   constructor(props) {
     super(props);
     this.handleChangeEvent = this.handleChangeEvent.bind(this);
-
   }
 
   handleChangeEvent(evt) {
@@ -34,3 +33,10 @@ export default class Checkbox extends Component {
   }
 
 }
+
+Checkbox.propTypes = {
+  onChange: PropTypes.func.isRequired
+}
+
+
+export default Checkbox;
