@@ -14,13 +14,14 @@ class CollapsibleGroup extends Component {
         }
       });
 
-      targetComponent.toggleActive({ active: true });
+      targetComponent.toggleActive({ active: true, toggle: true });
     }
   }
 
   render() {
     const {
       className,
+      maxHeight,
       popout,
       active,
       expandable
@@ -44,7 +45,7 @@ class CollapsibleGroup extends Component {
           }
 
           return (
-            <Collapsible
+            <Collapsible maxHeight={maxHeight || '300px'}
               key={uniqueId('collapse-')} active={isActive} ref={`collapse-${idx}`}
               handleOnClick={this.handleOnClick.bind(this, idx)}>
               {child}
@@ -70,8 +71,12 @@ class Collapsible extends Component {
     }
   }
 
-  toggleActive({ active }) {
-    this.setState({ active });      
+  toggleActive({ active, toggle }) {
+    if(toggle === true) {
+      this.setState({ active: !this.state.active });
+    } else {
+      this.setState({ active });
+    }
   }
 
   render() {

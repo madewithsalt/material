@@ -393,7 +393,7 @@ var CollapsibleGroup = function (_Component) {
           }
         });
 
-        targetComponent.toggleActive({ active: true });
+        targetComponent.toggleActive({ active: true, toggle: true });
       }
     }
   }, {
@@ -403,6 +403,7 @@ var CollapsibleGroup = function (_Component) {
 
       var _props = this.props,
           className = _props.className,
+          maxHeight = _props.maxHeight,
           popout = _props.popout,
           active = _props.active,
           expandable = _props.expandable;
@@ -424,7 +425,7 @@ var CollapsibleGroup = function (_Component) {
 
           return _react2.default.createElement(
             Collapsible,
-            {
+            { maxHeight: maxHeight || '300px',
               key: (0, _lodash.uniqueId)('collapse-'), active: isActive, ref: 'collapse-' + idx,
               handleOnClick: _this2.handleOnClick.bind(_this2, idx) },
             child
@@ -456,9 +457,14 @@ var Collapsible = function (_Component2) {
   _createClass(Collapsible, [{
     key: 'toggleActive',
     value: function toggleActive(_ref) {
-      var active = _ref.active;
+      var active = _ref.active,
+          toggle = _ref.toggle;
 
-      this.setState({ active: active });
+      if (toggle === true) {
+        this.setState({ active: !this.state.active });
+      } else {
+        this.setState({ active: active });
+      }
     }
   }, {
     key: 'render',
@@ -970,25 +976,17 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = require('prop-types');
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
 var _Table = require('./Table');
 
-var _jquery = require('jquery');
-
-var _jquery2 = _interopRequireDefault(_jquery);
-
-var _datatables = require('datatables.net');
-
-var _datatables2 = _interopRequireDefault(_datatables);
+var _Table2 = _interopRequireDefault(_Table);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -997,9 +995,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-// See documentation for datatables here:
-// https://datatables.net/manual
-
 
 var DataTable = function (_Component) {
   _inherits(DataTable, _Component);
@@ -1014,8 +1009,8 @@ var DataTable = function (_Component) {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        _Table.Table,
-        null,
+        _Table2.default,
+        _extends({ ref: 'table' }, this.props, { datatable: true }),
         this.props.children
       );
     }
@@ -1045,6 +1040,14 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _jquery = require('jquery');
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+var _datatables = require('datatables.net');
+
+var _datatables2 = _interopRequireDefault(_datatables);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1052,6 +1055,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+// See documentation for datatables here:
+// https://datatables.net/manual
+
+
+(0, _datatables2.default)();
 
 var Table = function (_Component) {
   _inherits(Table, _Component);
@@ -1063,6 +1071,13 @@ var Table = function (_Component) {
   }
 
   _createClass(Table, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      if (this.props.datatable) {
+        (0, _jquery2.default)(this.refs.table).DataTable(this.props.options || {});
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _props = this.props,
@@ -1072,14 +1087,16 @@ var Table = function (_Component) {
           highlight = _props.highlight,
           centered = _props.centered,
           responsive = _props.responsive,
-          children = _props.children;
+          children = _props.children,
+          style = _props.style;
 
 
-      var classes = ['' + (className || ''), '' + (striped ? 'striped' : ''), '' + (highlight ? 'highlight' : ''), '' + (centered ? 'centered' : ''), '' + (responsive ? 'responsive-table' : '')];
+      var classes = ['' + (className || ''), '' + (striped ? 'striped' : ''), '' + (bordered ? 'bordered' : ''), '' + (highlight ? 'highlight' : ''), '' + (centered ? 'centered' : ''), '' + (responsive ? 'responsive-table' : '')];
 
       return _react2.default.createElement(
         'table',
-        { className: classes.join(' ') },
+        { style: style || {},
+          className: classes.join(' '), ref: 'table' },
         children
       );
     }
@@ -1550,7 +1567,7 @@ var Collapsibles = function Collapsibles(props) {
     _react2.default.createElement(
       _CodeElement2.default,
       { react: true },
-      '\n<CollapsibleGroup active={1}>\n  <div title="One">...</div>\n  <div title="Two">...</div>\n  <div title="Three">...</div>\n</CollapsibleGroup>\n        '
+      '\nimport { CollapsibleGroup } from \'material\';\n\n<CollapsibleGroup active={1}>\n  <div title="One">...</div>\n  <div title="Two">...</div>\n  <div title="Three">...</div>\n</CollapsibleGroup>\n        '
     ),
     _react2.default.createElement(
       'h3',
@@ -1635,6 +1652,238 @@ var Collapsibles = function Collapsibles(props) {
 };
 
 exports.default = Collapsibles;
+
+});
+
+require.register("js/containers/DataTables.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Tables = require('../components/Tables');
+
+var _Collapsible = require('../components/Collapsible');
+
+var _CodeElement = require('../docs/CodeElement');
+
+var _CodeElement2 = _interopRequireDefault(_CodeElement);
+
+var _faker = require('faker');
+
+var _faker2 = _interopRequireDefault(_faker);
+
+var _lodash = require('lodash');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var sampleData = [];
+(0, _lodash.times)(5, function (i) {
+  sampleData.push({
+    name: _faker2.default.name.findName(),
+    email: _faker2.default.internet.email(),
+    title: _faker2.default.name.title()
+  });
+});
+
+var DataTables = function (_Component) {
+  _inherits(DataTables, _Component);
+
+  function DataTables() {
+    _classCallCheck(this, DataTables);
+
+    return _possibleConstructorReturn(this, (DataTables.__proto__ || Object.getPrototypeOf(DataTables)).apply(this, arguments));
+  }
+
+  _createClass(DataTables, [{
+    key: 'render',
+    value: function render() {
+      var dataKeys = Object.keys(sampleData[0]);
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'primary-container flex-wrapper tables-container' },
+        _react2.default.createElement(
+          'h2',
+          null,
+          'Data Tables'
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          'Currently this Component is an intelligent wrapper around the very robust and feature-rich ',
+          _react2.default.createElement(
+            'a',
+            { href: 'https://datatables.net/' },
+            'jQuery DataTables.'
+          )
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          'Data tables accept all the styling options a regular table does.'
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          'For detailed info about what you can do, see datatables manual on their website.'
+        ),
+        _react2.default.createElement('hr', null),
+        _react2.default.createElement(
+          'h5',
+          null,
+          'Default Implmentation'
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          'This is what you get if you pass in no options at all: Search, Sort, and Filtering with basic styles.'
+        ),
+        _react2.default.createElement(
+          _Tables.DataTable,
+          { striped: true },
+          _react2.default.createElement(
+            _Tables.TableHeader,
+            null,
+            _react2.default.createElement(
+              _Tables.TableRow,
+              null,
+              dataKeys.map(function (val) {
+                return _react2.default.createElement(
+                  _Tables.TableHeaderColumn,
+                  { key: val },
+                  (0, _lodash.capitalize)(val)
+                );
+              })
+            )
+          ),
+          _react2.default.createElement(
+            _Tables.TableBody,
+            null,
+            sampleData.map(function (data, idx) {
+              return _react2.default.createElement(
+                _Tables.TableRow,
+                { key: 'row-datatable-' + idx },
+                dataKeys.map(function (key) {
+                  return _react2.default.createElement(
+                    _Tables.TableRowColumn,
+                    { key: data[key] },
+                    data[key]
+                  );
+                })
+              );
+            })
+          )
+        ),
+        _react2.default.createElement(
+          _CodeElement2.default,
+          { react: true },
+          '\n  <DataTable striped>\n    // ... table content here.\n  </DataTable>\n                '
+        ),
+        _react2.default.createElement(
+          'h4',
+          null,
+          'Data Table Customization'
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          'Pass any configuration directly to the ',
+          _react2.default.createElement(
+            'code',
+            null,
+            'DataTable'
+          ),
+          'instance by adding an ',
+          _react2.default.createElement(
+            'code',
+            null,
+            'options'
+          ),
+          ' prop.'
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          'There\'s a rediculous number of options available, which can be referenced here: ',
+          _react2.default.createElement(
+            'a',
+            { href: 'https://datatables.net/reference/option/' },
+            'DataTables Option Reference '
+          )
+        ),
+        _react2.default.createElement('hr', null),
+        _react2.default.createElement(
+          'h6',
+          null,
+          'Table with no paging, ordering, or info:'
+        ),
+        _react2.default.createElement(
+          _Tables.DataTable,
+          { options: {
+              paging: false,
+              ordering: false,
+              info: false
+            } },
+          _react2.default.createElement(
+            _Tables.TableHeader,
+            null,
+            _react2.default.createElement(
+              _Tables.TableRow,
+              null,
+              dataKeys.map(function (val) {
+                return _react2.default.createElement(
+                  _Tables.TableHeaderColumn,
+                  { key: val },
+                  (0, _lodash.capitalize)(val)
+                );
+              })
+            )
+          ),
+          _react2.default.createElement(
+            _Tables.TableBody,
+            null,
+            sampleData.map(function (data, idx) {
+              return _react2.default.createElement(
+                _Tables.TableRow,
+                { key: 'row-datatable-' + idx },
+                dataKeys.map(function (key) {
+                  return _react2.default.createElement(
+                    _Tables.TableRowColumn,
+                    { key: data[key] },
+                    data[key]
+                  );
+                })
+              );
+            })
+          )
+        ),
+        _react2.default.createElement(
+          _CodeElement2.default,
+          { react: true },
+          '\n<DataTable options={{\n      paging:   false,\n      ordering: false,\n      info:     false\n  }}>\n    // Table contents here ...\n</DataTable>\n            '
+        )
+      );
+    }
+  }]);
+
+  return DataTables;
+}(_react.Component);
+
+exports.default = DataTables;
 
 });
 
@@ -1972,11 +2221,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
 var _Tables = require('../components/Tables');
+
+var _Collapsible = require('../components/Collapsible');
 
 var _CodeElement = require('../docs/CodeElement');
 
@@ -1997,13 +2250,56 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var sampleData = [];
-(0, _lodash.times)(50, function (i) {
+(0, _lodash.times)(5, function (i) {
   sampleData.push({
     name: _faker2.default.name.findName(),
     email: _faker2.default.internet.email(),
     title: _faker2.default.name.title()
   });
 });
+
+function renderTableExample() {
+  var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+  var dataKeys = Object.keys(sampleData[0]);
+
+  return _react2.default.createElement(
+    _Tables.Table,
+    _extends({}, props, { style: { marginBottom: '20px' } }),
+    _react2.default.createElement(
+      _Tables.TableHeader,
+      null,
+      _react2.default.createElement(
+        _Tables.TableRow,
+        null,
+        dataKeys.map(function (val) {
+          return _react2.default.createElement(
+            _Tables.TableHeaderColumn,
+            { key: val },
+            (0, _lodash.capitalize)(val)
+          );
+        })
+      )
+    ),
+    _react2.default.createElement(
+      _Tables.TableBody,
+      null,
+      sampleData.map(function (data, idx) {
+        return _react2.default.createElement(
+          _Tables.TableRow,
+          { key: 'row-' + idx },
+          dataKeys.map(function (key) {
+            return _react2.default.createElement(
+              _Tables.TableRowColumn,
+              { key: data[key] },
+              data[key]
+            );
+          })
+        );
+      })
+    )
+  );
+}
 
 var Tables = function (_Component) {
   _inherits(Tables, _Component);
@@ -2017,8 +2313,6 @@ var Tables = function (_Component) {
   _createClass(Tables, [{
     key: 'render',
     value: function render() {
-      var dataKeys = Object.keys(sampleData[0]);
-
       return _react2.default.createElement(
         'div',
         { className: 'primary-container flex-wrapper tables-container' },
@@ -2028,54 +2322,105 @@ var Tables = function (_Component) {
           'Tables'
         ),
         _react2.default.createElement(
-          _Tables.Table,
+          'h4',
           null,
+          'Standard Table'
+        ),
+        renderTableExample(),
+        _react2.default.createElement(
+          _Collapsible.CollapsibleGroup,
+          { maxHeight: '300px' },
           _react2.default.createElement(
-            _Tables.TableHeader,
-            null,
+            'div',
+            { title: 'Standard Table Code Sample' },
             _react2.default.createElement(
-              _Tables.TableRow,
-              null,
-              dataKeys.map(function (val) {
-                return _react2.default.createElement(
-                  _Tables.TableHeaderColumn,
-                  { key: val },
-                  val
-                );
-              })
+              _CodeElement2.default,
+              { react: true },
+              '\n  <Table>\n    <TableHeader>\n      <TableRow>\n        <TableHeaderColumn>\n          // ...\n        </TableHeaderColumn>\n      </TableRow>\n    </TableHeader>\n    <TableBody>\n      <TableRow>\n        <TableRowColumn>\n          // ...\n        </TableRowColumn>\n      </TableRow>\n    </TableBody>\n  </Table>\n                '
             )
-          ),
-          _react2.default.createElement(
-            _Tables.TableBody,
-            null,
-            sampleData.map(function (data) {
-              return _react2.default.createElement(
-                _Tables.TableRow,
-                null,
-                dataKeys.map(function (key) {
-                  return _react2.default.createElement(
-                    _Tables.TableRowColumn,
-                    { key: data[key] },
-                    data[key]
-                  );
-                })
-              );
-            })
           )
         ),
         _react2.default.createElement(
-          'div',
-          { className: 'col m6' },
-          _react2.default.createElement(
-            'h5',
-            null,
-            'Code Example'
-          ),
-          _react2.default.createElement(
-            _CodeElement2.default,
-            { react: true },
-            '\n<Table>\n  <TableHeader>\n    <TableRow>\n      <TableHeaderColumn>\n        // ...\n      </TableHeaderColumn>\n    </TableRow>\n  </TableHeader>\n  <TableBody>\n    <TableRow>\n      <TableRowColumn>\n        // ...\n      </TableRowColumn>\n    </TableRow>\n  </TableBody>\n</Table>\n              '
-          )
+          'h3',
+          null,
+          'Available Styles'
+        ),
+        _react2.default.createElement(
+          'h5',
+          null,
+          'Striped Table'
+        ),
+        renderTableExample({ striped: true }),
+        _react2.default.createElement(
+          _CodeElement2.default,
+          { react: true },
+          '\n<Table striped>\n  // ...\n</Table>\n            '
+        ),
+        _react2.default.createElement('hr', null),
+        _react2.default.createElement(
+          'h5',
+          null,
+          'Highlight on Hover'
+        ),
+        renderTableExample({ highlight: true }),
+        _react2.default.createElement(
+          _CodeElement2.default,
+          { react: true },
+          '\n<Table highlight>\n  // ...\n</Table>\n            '
+        ),
+        _react2.default.createElement('hr', null),
+        _react2.default.createElement(
+          'h5',
+          null,
+          'Centered'
+        ),
+        renderTableExample({ centered: true }),
+        _react2.default.createElement(
+          _CodeElement2.default,
+          { react: true },
+          '\n  <Table centered>\n    // ...\n  </Table>\n              '
+        ),
+        _react2.default.createElement('hr', null),
+        _react2.default.createElement(
+          'h5',
+          null,
+          'Bordered'
+        ),
+        renderTableExample({ bordered: true }),
+        _react2.default.createElement(
+          _CodeElement2.default,
+          { react: true },
+          '\n    <Table bordered>\n      // ...\n    </Table>\n                '
+        ),
+        _react2.default.createElement('hr', null),
+        _react2.default.createElement(
+          'h5',
+          null,
+          'Responsive'
+        ),
+        renderTableExample({ responsive: true }),
+        _react2.default.createElement(
+          _CodeElement2.default,
+          { react: true },
+          '\n      <Table responsive>\n        // ...\n      </Table>\n                  '
+        ),
+        _react2.default.createElement('hr', null),
+        _react2.default.createElement(
+          'h5',
+          null,
+          'The Works!'
+        ),
+        renderTableExample({
+          centered: true,
+          responsive: true,
+          bordered: true,
+          striped: true,
+          highlight: true
+        }),
+        _react2.default.createElement(
+          _CodeElement2.default,
+          { react: true },
+          '\n        <Table highlight bordered centered striped responsive>\n          // ...\n        </Table>\n                    '
         )
       );
     }
@@ -2248,6 +2593,10 @@ var _Tables = require('./containers/Tables');
 
 var _Tables2 = _interopRequireDefault(_Tables);
 
+var _DataTables = require('./containers/DataTables');
+
+var _DataTables2 = _interopRequireDefault(_DataTables);
+
 var _Icons = require('./containers/Icons');
 
 var _Icons2 = _interopRequireDefault(_Icons);
@@ -2330,6 +2679,19 @@ var App = function (_Component) {
                           'a',
                           { href: '#tables' },
                           'Tables'
+                        ),
+                        _react2.default.createElement(
+                          'ul',
+                          null,
+                          _react2.default.createElement(
+                            'li',
+                            null,
+                            _react2.default.createElement(
+                              'a',
+                              { href: '#datatables' },
+                              'Data Tables'
+                            )
+                          )
                         )
                       ),
                       _react2.default.createElement(
@@ -2357,6 +2719,7 @@ var App = function (_Component) {
               _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home2.default }),
               _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/forms', component: _Forms2.default }),
               _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/tables', component: _Tables2.default }),
+              _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/datatables', component: _DataTables2.default }),
               _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/icons', component: _Icons2.default }),
               _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/typography', component: _Typography2.default }),
               _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/collapsible', component: _Collapsible2.default })

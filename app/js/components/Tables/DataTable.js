@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Table as TableBase } from './Table';
-import $ from 'jquery';
-// See documentation for datatables here:
-// https://datatables.net/manual
-import dt from 'datatables.net';
+import Table from './Table';
+
 
 class DataTable extends Component {
   render() {
     return (
-      <TableBase>{this.props.children}</TableBase>
+      <Table ref="table" {...this.props} datatable>
+        {this.props.children}
+      </Table>
     )
   }
 }

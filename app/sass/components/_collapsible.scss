@@ -43,6 +43,7 @@
   .collapsible-body {
     visibility: visible;
     max-height: 30em;
+    overflow-y: auto;
   }
 }
 

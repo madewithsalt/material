@@ -5,6 +5,7 @@ import { HashRouter as Router, Route } from 'react-router-dom';
 import Home from './containers/Home';
 import Forms from './containers/Forms';
 import Tables from './containers/Tables';
+import DataTables from './containers/DataTables';
 import Icons from './containers/Icons';
 import Typography from './containers/Typography';
 import Collapsibles from './containers/Collapsible';
@@ -23,7 +24,14 @@ class App extends Component {
                     <ul>
                       <li><a href="#icons">Icons</a></li>
                       <li><a href="#forms">Forms</a></li>
-                      <li><a href="#tables">Tables</a></li>
+                      <li>
+                        <a href="#tables">Tables</a>
+                        <ul>
+                          <li>
+                            <a href="#datatables">Data Tables</a>
+                          </li>
+                        </ul>
+                      </li>
                       <li><a href="#collapsible">Collapsible</a></li>
                     </ul>
                   </li>
@@ -35,6 +43,7 @@ class App extends Component {
               <Route exact path="/" component={Home} />
               <Route exact path="/forms" component={Forms} />
               <Route exact path="/tables" component={Tables} />
+              <Route exact path="/datatables" component={DataTables} />
               <Route exact path="/icons" component={Icons} />
               <Route exact path="/typography" component={Typography} />
               <Route exact path="/collapsible" component={Collapsibles} />

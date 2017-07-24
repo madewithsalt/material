@@ -1,6 +1,6 @@
 import React from 'react';
 import { Icon } from '../components/Icons';
-import { CollapsibleGroup, Collapsible } from '../components/Collapsible';
+import { CollapsibleGroup } from '../components/Collapsible';
 import CodeElement from '../docs/CodeElement';
 import faker from 'faker';
 
@@ -23,6 +23,8 @@ const Collapsibles = (props) => (
     <CodeElement react>
       {
         `
+import { CollapsibleGroup } from 'material';
+
 <CollapsibleGroup active={1}>
   <div title="One">...</div>
   <div title="Two">...</div>

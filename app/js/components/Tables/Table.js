@@ -1,9 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import $ from 'jquery';
+// See documentation for datatables here:
+// https://datatables.net/manual
+import dt from 'datatables.net';
+
+dt();
 
 export default class Table extends Component {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    if(this.props.datatable) {
+      $(this.refs.table).DataTable(this.props.options || {});
+    }
   }
 
   render() {
@@ -14,12 +26,14 @@ export default class Table extends Component {
       highlight,
       centered,
       responsive,
-      children
+      children,
+      style
     } = this.props;
 
     const classes = [
       `${className || ''}`,
       `${striped ? 'striped' : ''}`,
+      `${bordered ? 'bordered' : ''}`,
       `${highlight ? 'highlight' : ''}`,
       `${centered ? 'centered' : ''}`,
       `${responsive ? 'responsive-table' : ''}`
@@ -27,7 +41,10 @@ export default class Table extends Component {
 
 
     return (
-      <table className={classes.join(' ')}>{children}</table>
+      <table style={style || {}}
+        className={classes.join(' ')} ref="table">
+        {children}
+      </table>
     )
   }
 }
