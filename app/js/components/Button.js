@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import CodeElement from '../docs/CodeElement';
 
 class Button extends Component {
   render() {
