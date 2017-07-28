@@ -1,6 +1,6 @@
 import React from 'react';
 import sinon from 'sinon';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import {
   Input,
   TextArea
@@ -76,7 +76,7 @@ describe('Forms: <TextArea />', () => {
   });
 
   test('Changes to active state when input is focused', () => {
-      const wrapper = shallow(
+      const wrapper = mount(
         <TextArea label="Test Input" name="test" onChange={() => {}} />
       );
 

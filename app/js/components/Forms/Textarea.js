@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import $ from 'jquery';
 
 export default class TextArea extends Component {
   constructor(props) {
@@ -48,7 +49,7 @@ export default class TextArea extends Component {
   }
 
   handleResize() {
-    const height = this.shadow.clientHeight + 45;
+    const height = $(this.shadow).height() + 45;
     if(height > this.props.defaultHeight) {
       this.setState({ height });
     } else if(height < this.props.defaultHeight) {

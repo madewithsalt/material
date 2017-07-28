@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import $ from 'jquery';
 
 
-class Modal extends Component {
+export class Modal extends Component {
   constructor(props) {
     super(props);
 

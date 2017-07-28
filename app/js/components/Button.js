@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class Button extends Component {
+export class Button extends Component {
   render() {
     const {
       name,
@@ -34,5 +34,3 @@ class Button extends Component {
 Button.defaultProps = {
   onClick: PropTypes.func.isRequired
 }
-
-export default Button;
