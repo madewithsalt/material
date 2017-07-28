@@ -1,6 +1,6 @@
 import React from 'react';
 import {Icon} from '../components/Icons';
-import Button from '../components/Button';
+import {Button} from '../components/Button';
 import CodeElement from '../docs/CodeElement'
 
 
