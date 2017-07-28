@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CodeElement from '../docs/CodeElement';
 
-import Button from '../components/Button';
+import {Button} from '../components/Button';
 import {Icon} from '../components/Icons';
 
 function onClickEvent(evt) {

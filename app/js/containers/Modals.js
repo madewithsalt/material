@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import faker from 'faker';
 
 import CodeElement from '../docs/CodeElement';
-import Modal from '../components/Modal';
-import Button from '../components/Button';
+import {Modal} from '../components/Modal';
+import {Button} from '../components/Button';
 
 class Modals extends Component {
   constructor(props) {
