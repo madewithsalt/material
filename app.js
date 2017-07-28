@@ -235,16 +235,19 @@ var Button = function (_Component) {
           name = _props.name,
           floating = _props.floating,
           flat = _props.flat,
-          size = _props.size,
+          large = _props.large,
           className = _props.className,
+          disabled = _props.disabled,
+          style = _props.style,
           onClick = _props.onClick;
 
 
-      var classes = ['btn', '' + (className || ''), '' + (flat ? 'btn-flat' : ''), '' + (floating ? 'btn-floating' : ''), '' + (size || '')];
+      var classes = ['btn', '' + (disabled ? 'disabled' : ''), '' + (large ? 'btn-large' : ''), '' + (className || ''), '' + (flat ? 'btn-flat' : ''), '' + (floating ? 'btn-floating' : '')];
 
       return _react2.default.createElement(
         'button',
-        { className: classes.join(' '),
+        { className: classes.join(' '), disabled: disabled,
+          style: style || {},
           onClick: onClick },
         this.props.children
       );
@@ -255,7 +258,6 @@ var Button = function (_Component) {
 }(_react.Component);
 
 Button.defaultProps = {
-  name: _propTypes2.default.string.isRequired,
   onClick: _propTypes2.default.func.isRequired
 };
 
@@ -1633,6 +1635,209 @@ exports.TableFooter = _TableFooter2.default;
 
 });
 
+require.register("js/containers/Buttons.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _CodeElement = require('../docs/CodeElement');
+
+var _CodeElement2 = _interopRequireDefault(_CodeElement);
+
+var _Button = require('../components/Button');
+
+var _Button2 = _interopRequireDefault(_Button);
+
+var _Icons = require('../components/Icons');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function onClickEvent(evt) {
+  console.log('button click event!: ', evt);
+}
+
+var Buttons = function (_Component) {
+  _inherits(Buttons, _Component);
+
+  function Buttons() {
+    _classCallCheck(this, Buttons);
+
+    return _possibleConstructorReturn(this, (Buttons.__proto__ || Object.getPrototypeOf(Buttons)).apply(this, arguments));
+  }
+
+  _createClass(Buttons, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'primary-container flex-wrapper' },
+        _react2.default.createElement(
+          'h1',
+          null,
+          'Buttons'
+        ),
+        _react2.default.createElement('hr', null),
+        _react2.default.createElement(
+          'h4',
+          null,
+          'Standard Button'
+        ),
+        _react2.default.createElement(
+          _Button2.default,
+          { onClick: onClickEvent },
+          'Hello There.'
+        ),
+        _react2.default.createElement(
+          _CodeElement2.default,
+          { react: true },
+          '\n<Button onClick={onClickEvent}>Hello There.</Button>\n            '
+        ),
+        _react2.default.createElement('hr', null),
+        _react2.default.createElement(
+          'h4',
+          null,
+          'Flat Button'
+        ),
+        _react2.default.createElement(
+          _Button2.default,
+          { flat: true, onClick: onClickEvent },
+          'I\'m So Flat.'
+        ),
+        _react2.default.createElement(
+          _CodeElement2.default,
+          { react: true },
+          '\n<Button flat onClick={onClickEvent}>I\'m So Flat.</Button>\n            '
+        ),
+        _react2.default.createElement('hr', null),
+        _react2.default.createElement(
+          'h4',
+          null,
+          'Floating Button'
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          'Circular button, with space for a single letter or an icon.'
+        ),
+        _react2.default.createElement(
+          _Button2.default,
+          { floating: true, onClick: onClickEvent },
+          _react2.default.createElement(
+            _Icons.Icon,
+            null,
+            'add'
+          )
+        ),
+        _react2.default.createElement(
+          _CodeElement2.default,
+          { react: true },
+          '\n<Button floating onClick={onClickEvent}><Icon>add</Icon></Button>\n            '
+        ),
+        _react2.default.createElement('hr', null),
+        _react2.default.createElement(
+          'h4',
+          null,
+          'Large'
+        ),
+        _react2.default.createElement(
+          _Button2.default,
+          { large: true, onClick: onClickEvent },
+          'Large Button'
+        ),
+        _react2.default.createElement(
+          _CodeElement2.default,
+          { react: true },
+          '\n<Button large onClick={onClickEvent}>Large Button</Button>\n            '
+        ),
+        _react2.default.createElement('hr', null),
+        _react2.default.createElement(
+          'h4',
+          null,
+          'Disabled'
+        ),
+        _react2.default.createElement(
+          _Button2.default,
+          { disabled: true, onClick: onClickEvent },
+          'No Clicky'
+        ),
+        _react2.default.createElement(
+          _CodeElement2.default,
+          { react: true },
+          '\n<Button disabled onClick={onClickEvent}>No Clicky</Button>\n              '
+        ),
+        _react2.default.createElement('hr', null),
+        _react2.default.createElement(
+          'h4',
+          null,
+          'Other Properties'
+        ),
+        _react2.default.createElement(
+          'p',
+          { className: 'code-prop' },
+          _react2.default.createElement(
+            'code',
+            null,
+            'className (String)'
+          )
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          'Appends any additional classes to the button.'
+        ),
+        _react2.default.createElement(
+          'p',
+          { className: 'code-prop' },
+          _react2.default.createElement(
+            'code',
+            null,
+            'style (Object)'
+          )
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          'Applies any styles provided to the button.'
+        ),
+        _react2.default.createElement(
+          'p',
+          { className: 'code-prop' },
+          _react2.default.createElement(
+            'code',
+            null,
+            'onChange (function)'
+          )
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          'Required. Triggered on click.'
+        )
+      );
+    }
+  }]);
+
+  return Buttons;
+}(_react.Component);
+
+exports.default = Buttons;
+
+});
+
 require.register("js/containers/Collapsible.js", function(exports, require, module) {
 'use strict';
 
@@ -2184,7 +2389,7 @@ exports.default = Forms;
 });
 
 require.register("js/containers/Home.js", function(exports, require, module) {
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -2192,11 +2397,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require('react');
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
-
-var _Forms = require('../components/Forms');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2205,10 +2408,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-function onInputChange(val, evt) {
-  console.log('input change trigger: ', val);
-}
 
 var Home = function (_Component) {
   _inherits(Home, _Component);
@@ -2220,51 +2419,46 @@ var Home = function (_Component) {
   }
 
   _createClass(Home, [{
-    key: 'renderCode',
-    value: function renderCode(id) {
-      debugger;
-    }
-  }, {
-    key: 'render',
+    key: "render",
     value: function render() {
       return _react2.default.createElement(
-        'div',
-        { className: 'primary-container home-container flex-wrapper' },
+        "div",
+        { className: "primary-container home-container flex-wrapper" },
         _react2.default.createElement(
-          'h1',
+          "h1",
           null,
-          'Material'
+          "Material"
         ),
         _react2.default.createElement(
-          'p',
+          "p",
           null,
-          'An adaptation of React components and SASS styles inspired by Material-UI and Materialize.'
+          "An adaptation of React components and SASS styles inspired by Material-UI and Materialize."
         ),
         _react2.default.createElement(
-          'h3',
+          "h3",
           null,
-          'Additional Reference'
+          "Additional Reference"
         ),
         _react2.default.createElement(
-          'p',
+          "p",
           null,
-          'Styles adapted from: ',
+          "Styles adapted from: ",
           _react2.default.createElement(
-            'a',
-            { href: 'http://materializecss.com', target: '_blank' },
-            'http://materializecss.com'
+            "a",
+            { href: "http://materializecss.com", target: "_blank" },
+            "http://materializecss.com"
           ),
-          '.'
+          "."
         ),
         _react2.default.createElement(
-          'h3',
+          "h3",
           null,
-          'THIS IS A WORK IN PROGRESS'
+          "THIS IS A WORK IN PROGRESS"
         ),
         _react2.default.createElement(
-          'p',
+          "p",
           null,
-          'While the styles are very complete thanks to the hard work of the materialize folks, the React Components are still being built.'
+          "While the styles are very complete thanks to the hard work of the materialize folks, the React Components are still being built."
         )
       );
     }
@@ -2315,11 +2509,21 @@ var Icons = function Icons(props) {
       'All icons in Material Icons v3.0.1 are available to use.'
     ),
     _react2.default.createElement(
+      'p',
+      null,
+      'Documentation:  ',
+      _react2.default.createElement(
+        'a',
+        { href: 'https://material.io/icons/', target: '_blank' },
+        'https://material.io/icons/'
+      )
+    ),
+    _react2.default.createElement(
       'div',
       { className: 'row' },
       _react2.default.createElement(
         'div',
-        { className: 'col s3' },
+        { className: 'col s6' },
         _react2.default.createElement(
           'h5',
           null,
@@ -2338,11 +2542,26 @@ var Icons = function Icons(props) {
       ),
       _react2.default.createElement(
         'div',
-        { className: 'col s3' },
+        { className: 'col s6' },
         _react2.default.createElement(
           'h5',
           null,
           'Icon in a Button'
+        ),
+        _react2.default.createElement(
+          _Button2.default,
+          null,
+          _react2.default.createElement(
+            _Icons.Icon,
+            null,
+            'star'
+          ),
+          ' Favorite'
+        ),
+        _react2.default.createElement(
+          _CodeElement2.default,
+          { react: true },
+          '\n<Button><Icon>star</Icon> Favorite</Button>\n            '
         )
       )
     )
@@ -3097,6 +3316,10 @@ var _Modals = require('./containers/Modals');
 
 var _Modals2 = _interopRequireDefault(_Modals);
 
+var _Buttons = require('./containers/Buttons');
+
+var _Buttons2 = _interopRequireDefault(_Buttons);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -3201,6 +3424,15 @@ var App = function (_Component) {
                       { href: '#modals' },
                       'Modals'
                     )
+                  ),
+                  _react2.default.createElement(
+                    'li',
+                    null,
+                    _react2.default.createElement(
+                      'a',
+                      { href: '#buttons' },
+                      'Buttons'
+                    )
                   )
                 )
               )
@@ -3215,7 +3447,8 @@ var App = function (_Component) {
               _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/icons', component: _Icons2.default }),
               _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/typography', component: _Typography2.default }),
               _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/collapsible', component: _Collapsible2.default }),
-              _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/modals', component: _Modals2.default })
+              _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/modals', component: _Modals2.default }),
+              _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/buttons', component: _Buttons2.default })
             )
           )
         )
