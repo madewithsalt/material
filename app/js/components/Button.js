@@ -8,28 +8,31 @@ class Button extends Component {
       name,
       floating,
       flat,
-      size,
+      large,
       className,
+      disabled,
+      style,
       onClick
     } = this.props;
 
     const classes = [
       'btn',
+      `${disabled ? 'disabled':''}`,
+      `${large ? 'btn-large':''}`,
       `${className || ''}`,
-      `${flat ? 'btn-flat': ''}`,
-      `${floating ? 'btn-floating': ''}`,
-      `${size || ''}`
+      `${flat ? 'btn-flat':''}`,
+      `${floating ? 'btn-floating':''}`
     ];
 
     return (
-      <button className={classes.join(' ')}
+      <button className={classes.join(' ')} disabled={disabled}
+          style={style || {}}
           onClick={onClick}>{this.props.children}</button>
     );
   }
 }
 
 Button.defaultProps = {
-  name: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired
 }
 

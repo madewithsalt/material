@@ -10,6 +10,7 @@ import Icons from './containers/Icons';
 import Typography from './containers/Typography';
 import Collapsibles from './containers/Collapsible';
 import Modals from './containers/Modals';
+import Buttons from './containers/Buttons';
 
 class App extends Component {
   render() {
@@ -37,6 +38,7 @@ class App extends Component {
                     </ul>
                   </li>
                   <li><a href="#modals">Modals</a></li>
+                  <li><a href="#buttons">Buttons</a></li>
                 </ul>
               </div>
             </div>
@@ -49,6 +51,7 @@ class App extends Component {
               <Route exact path="/typography" component={Typography} />
               <Route exact path="/collapsible" component={Collapsibles} />
               <Route exact path="/modals" component={Modals} />
+              <Route exact path="/buttons" component={Buttons} />
             </div>
           </div>
         </div>
