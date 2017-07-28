@@ -1,5 +1,6 @@
 export {
-  Input
+  Input,
+  TextArea,
 } from './components/Forms';
 export {
   Icon,
@@ -8,3 +9,6 @@ export {
 export {
   Button
 } from './components/Button';
+export {
+  Modal
+} from './components/Modal';

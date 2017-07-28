@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class Checkbox extends Component {
+class CheckBox extends Component {
   constructor(props) {
     super(props);
     this.handleChangeEvent = this.handleChangeEvent.bind(this);
@@ -34,9 +34,9 @@ class Checkbox extends Component {
 
 }
 
-Checkbox.propTypes = {
+CheckBox.propTypes = {
   onChange: PropTypes.func.isRequired
 }
 
 
-export default Checkbox;
+export default CheckBox;
