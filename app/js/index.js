@@ -9,6 +9,7 @@ import DataTables from './containers/DataTables';
 import Icons from './containers/Icons';
 import Typography from './containers/Typography';
 import Collapsibles from './containers/Collapsible';
+import Modals from './containers/Modals';
 
 class App extends Component {
   render() {
@@ -35,7 +36,7 @@ class App extends Component {
                       <li><a href="#collapsible">Collapsible</a></li>
                     </ul>
                   </li>
-                  <li><a href="#"></a></li>
+                  <li><a href="#modals">Modals</a></li>
                 </ul>
               </div>
             </div>
@@ -47,6 +48,7 @@ class App extends Component {
               <Route exact path="/icons" component={Icons} />
               <Route exact path="/typography" component={Typography} />
               <Route exact path="/collapsible" component={Collapsibles} />
+              <Route exact path="/modals" component={Modals} />
             </div>
           </div>
         </div>

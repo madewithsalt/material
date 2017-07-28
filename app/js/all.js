@@ -7,4 +7,4 @@ export {
 } from './components/Icons';
 export {
   Button
-} from './components/Buttons';
+} from './components/Button';

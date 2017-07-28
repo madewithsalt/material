@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import CodeElement from '../docs/CodeElement';
 
 class Button extends Component {
   render() {
@@ -22,7 +23,7 @@ class Button extends Component {
 
     return (
       <button className={classes.join(' ')}
-          onClick={onClick}>{name}</button>
+          onClick={onClick}>{this.props.children}</button>
     );
   }
 }
