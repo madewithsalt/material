@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  DataTable,
   Table,
   TableBody,
   TableHeader,
@@ -40,9 +39,9 @@ class DataTables extends Component {
         <p>Data tables accept all the styling options a regular table does.</p>
         <p>For detailed info about what you can do, see datatables manual on their website.</p>
         <hr/>
-        <h5>Default Implmentation</h5>
+        <h5>Default Implementation</h5>
         <p>This is what you get if you pass in no options at all: Search, Sort, and Filtering with basic styles.</p>
-        <DataTable striped>
+        <Table datatable striped>
           <TableHeader>
             <TableRow>
               {dataKeys.map((val) => {
@@ -69,7 +68,7 @@ class DataTables extends Component {
               )
             })}
           </TableBody>
-        </DataTable>
+        </Table>
         <CodeElement react>
               {
                 `
@@ -88,7 +87,7 @@ class DataTables extends Component {
         here: <a href="https://datatables.net/reference/option/">DataTables Option Reference </a></p>
         <hr/>
         <h6>Table with no paging, ordering, or info:</h6>
-        <DataTable options={{
+        <Table datatable options={{
             paging:   false,
             ordering: false,
             info:     false
@@ -119,7 +118,7 @@ class DataTables extends Component {
               )
             })}
           </TableBody>
-        </DataTable>
+        </Table>
         <CodeElement react>
           {`
 <DataTable options={{

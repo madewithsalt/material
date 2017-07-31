@@ -203,6 +203,57 @@ Object.defineProperty(exports, 'Modal', {
   }
 });
 
+var _Tables = require('./components/Tables');
+
+Object.defineProperty(exports, 'Table', {
+  enumerable: true,
+  get: function get() {
+    return _Tables.Table;
+  }
+});
+Object.defineProperty(exports, 'DataTable', {
+  enumerable: true,
+  get: function get() {
+    return _Tables.DataTable;
+  }
+});
+Object.defineProperty(exports, 'TableBody', {
+  enumerable: true,
+  get: function get() {
+    return _Tables.TableBody;
+  }
+});
+Object.defineProperty(exports, 'TableHeader', {
+  enumerable: true,
+  get: function get() {
+    return _Tables.TableHeader;
+  }
+});
+Object.defineProperty(exports, 'TableHeaderColumn', {
+  enumerable: true,
+  get: function get() {
+    return _Tables.TableHeaderColumn;
+  }
+});
+Object.defineProperty(exports, 'TableRow', {
+  enumerable: true,
+  get: function get() {
+    return _Tables.TableRow;
+  }
+});
+Object.defineProperty(exports, 'TableRowColumn', {
+  enumerable: true,
+  get: function get() {
+    return _Tables.TableRowColumn;
+  }
+});
+Object.defineProperty(exports, 'TableFooter', {
+  enumerable: true,
+  get: function get() {
+    return _Tables.TableFooter;
+  }
+});
+
 });
 
 require.register("js/components/Button.js", function(exports, require, module) {
@@ -1127,60 +1178,6 @@ exports.default = Modal;
 
 });
 
-require.register("js/components/Tables/DataTable.js", function(exports, require, module) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _Table = require('./Table');
-
-var _Table2 = _interopRequireDefault(_Table);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var DataTable = function (_Component) {
-  _inherits(DataTable, _Component);
-
-  function DataTable() {
-    _classCallCheck(this, DataTable);
-
-    return _possibleConstructorReturn(this, (DataTable.__proto__ || Object.getPrototypeOf(DataTable)).apply(this, arguments));
-  }
-
-  _createClass(DataTable, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        _Table2.default,
-        _extends({ ref: 'table' }, this.props, { datatable: true }),
-        this.props.children
-      );
-    }
-  }]);
-
-  return DataTable;
-}(_react.Component);
-
-exports.default = DataTable;
-
-});
-
 require.register("js/components/Tables/Table.js", function(exports, require, module) {
 'use strict';
 
@@ -1232,12 +1229,14 @@ var Table = function (_Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       if (this.props.datatable) {
-        (0, _jquery2.default)(this.refs.table).DataTable(this.props.options || {});
+        (0, _jquery2.default)(this.table).DataTable(this.props.options || {});
       }
     }
   }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       var _props = this.props,
           className = _props.className,
           bordered = _props.bordered,
@@ -1254,7 +1253,9 @@ var Table = function (_Component) {
       return _react2.default.createElement(
         'table',
         { style: style || {},
-          className: classes.join(' '), ref: 'table' },
+          className: classes.join(' '), ref: function ref(t) {
+            _this2.table = t;
+          } },
         children
       );
     }
@@ -1607,7 +1608,7 @@ require.register("js/components/Tables/index.js", function(exports, require, mod
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.TableFooter = exports.TableRowColumn = exports.TableRow = exports.TableHeaderColumn = exports.TableHeader = exports.TableBody = exports.DataTable = exports.Table = undefined;
+exports.TableFooter = exports.TableRowColumn = exports.TableRow = exports.TableHeaderColumn = exports.TableHeader = exports.TableBody = exports.Table = undefined;
 
 var _Table = require('./Table');
 
@@ -1637,14 +1638,9 @@ var _TableHeaderColumn = require('./TableHeaderColumn');
 
 var _TableHeaderColumn2 = _interopRequireDefault(_TableHeaderColumn);
 
-var _DataTable = require('./DataTable');
-
-var _DataTable2 = _interopRequireDefault(_DataTable);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.Table = _Table2.default;
-exports.DataTable = _DataTable2.default;
 exports.TableBody = _TableBody2.default;
 exports.TableHeader = _TableHeader2.default;
 exports.TableHeaderColumn = _TableHeaderColumn2.default;
@@ -2104,7 +2100,7 @@ var DataTables = function (_Component) {
         _react2.default.createElement(
           'h5',
           null,
-          'Default Implmentation'
+          'Default Implementation'
         ),
         _react2.default.createElement(
           'p',
@@ -2112,8 +2108,8 @@ var DataTables = function (_Component) {
           'This is what you get if you pass in no options at all: Search, Sort, and Filtering with basic styles.'
         ),
         _react2.default.createElement(
-          _Tables.DataTable,
-          { striped: true },
+          _Tables.Table,
+          { datatable: true, striped: true },
           _react2.default.createElement(
             _Tables.TableHeader,
             null,
@@ -2191,8 +2187,8 @@ var DataTables = function (_Component) {
           'Table with no paging, ordering, or info:'
         ),
         _react2.default.createElement(
-          _Tables.DataTable,
-          { options: {
+          _Tables.Table,
+          { datatable: true, options: {
               paging: false,
               ordering: false,
               info: false

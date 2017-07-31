@@ -4,7 +4,6 @@ import $ from 'jquery';
 // See documentation for datatables here:
 // https://datatables.net/manual
 import dt from 'datatables.net';
-
 dt();
 
 export default class Table extends Component {
@@ -13,8 +12,8 @@ export default class Table extends Component {
   }
 
   componentDidMount() {
-    if(this.props.datatable) {
-      $(this.refs.table).DataTable(this.props.options || {});
+    if (this.props.datatable) {
+      $(this.table).DataTable(this.props.options || {});
     }
   }
 
@@ -42,7 +41,7 @@ export default class Table extends Component {
 
     return (
       <table style={style || {}}
-        className={classes.join(' ')} ref="table">
+        className={classes.join(' ')} ref={(t) => { this.table = t }}>
         {children}
       </table>
     )

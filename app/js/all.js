@@ -12,3 +12,13 @@ export {
 export {
   Modal
 } from './components/Modal';
+export {
+  Table,
+  DataTable,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn,
+  TableFooter
+} from './components/Tables';
